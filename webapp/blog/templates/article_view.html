@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Статья{% endblock %}
+{% block content %}
+    <div class="mt-3">
+        <h1>{{ article.title }}</h1><br>
+        Описание: <p class="'descrip">{{ article.description }}</p><br>
+        Автор: <h3>{{ article.author }}</h3><br>
+        Дата создания: {{ article.created_at }}<br>
+
+            <li class='btn align-top'><a href="{% url 'article_update' article.pk %}">Редактировать статью</a></li>
+            <li class='btn align-top'><a href="{% url 'del_article' article.pk %}">Удалить статью</a></li>
+            <li class='btn align-top'><a href="{% url 'add_comment' article.pk %}">Добавить комментарий</a></li>
+        {% if article.comments.all %}
+        <h3>Комментарии:</h3>
+            {% for comment in article.comments.all %}
+                <div class="comment">
+                    {% if comment.parrent_comment %}
+                        <div class='answer_coment'>
+                            <p>Answer to:</p>
+                            {{ comment.parrent_comment.author }}: "{{ comment.parrent_comment }}"
+                        </div>
+					{% else %}{% endif %}
+                    <h3>{{ comment.author }}:</h3> <p>{{ comment }}</p>
+                    <li class='btn align-top'><a href="{% url 'del_comment' comment.pk %}">Удалить</a></li>
+                    <li class='btn align-top'><a href="{% url 'add_answer_comment' article.pk comment.pk %}">Ответить</a></li>
+                    <li class='btn align-top'><a href="{% url 'change' article.pk comment.pk %}">Изменить</a></li>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Добавление комментария{% endblock %}
+{% block content %}
+    <h1>Добавление комментария</h1>
+    <form action="{% url 'add_comment' article_pk %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn, btn-primary">Добавить</button>
+    </form>
+{% endblock %}

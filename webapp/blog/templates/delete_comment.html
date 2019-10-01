@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Удалить комментарий{% endblock %}
+{% block content %}
+    <h1>Удаление комментария</h1>
+    <h5>Вы уверены, что хотите удалить комментарий?</h5>
+    <form action="{% url 'del_comment' comment.pk %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn, btn-primary">Удалить</button>
+    </form>
+        <a href="{% url 'view' comment.article.pk %}"><button type="submit" class="btn, btn-primary">Отмена</button></a>
+{% endblock %}
