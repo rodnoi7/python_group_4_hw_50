@@ -15,9 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from blog.views import ArticleListView, ArticleDetailView, ArticleUpdateView, ArticleDeleteView, ArticleCreateView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', ArticleListView.as_view(), name='index'),
+    path('article/<int:pk>', ArticleDetailView.as_view(), name='view'),
+    path('article/<int:pk>/update', ArticleUpdateView.as_view(), name='article_update'),
+    path('article/<int:pk>/delete', ArticleDeleteView.as_view(), name='del_article'),
+    path('article/create', ArticleCreateView.as_view(), name='article_create'),
 ]
 urlpatterns += staticfiles_urlpatterns()
