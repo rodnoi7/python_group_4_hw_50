@@ -19,6 +19,7 @@ class Comment(models.Model):
     author = models.CharField(max_length=40, null=True, blank=True, default='Аноним', verbose_name='Автор')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
+    parrent_comment = models.ForeignKey('Comment', null=True, blank=True, related_name='parr_coment', on_delete=models.CASCADE, verbose_name='Ответ на:')
 
     def __str__(self):
         return self.text[:20]

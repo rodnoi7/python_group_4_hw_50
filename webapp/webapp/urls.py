@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from blog.views import ArticleListView, ArticleDetailView, ArticleUpdateView, ArticleDeleteView, ArticleCreateView
+from blog.views import ArticleListView, ArticleDetailView, ArticleUpdateView, ArticleDeleteView, ArticleCreateView, CommentCreateView, CommentDeleteView, AnswerCommentCreateView, change_comment
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
@@ -25,5 +25,10 @@ urlpatterns = [
     path('article/<int:pk>/update', ArticleUpdateView.as_view(), name='article_update'),
     path('article/<int:pk>/delete', ArticleDeleteView.as_view(), name='del_article'),
     path('article/create', ArticleCreateView.as_view(), name='article_create'),
+
+    path('article/<int:pk>/add_comment', CommentCreateView.as_view(), name='add_comment'),
+    path('comment/<int:pk>/delete', CommentDeleteView.as_view(), name='del_comment'),
+    path('article/<int:pk>/comment/<int:comment_pk>/create_answer', AnswerCommentCreateView.as_view(), name='add_answer_comment'),
+    path('article/<int:article_pk>/comment/<int:comment_pk>/update', change_comment, name='change'),
 ]
 urlpatterns += staticfiles_urlpatterns()
